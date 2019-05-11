@@ -1,0 +1,32 @@
+{% extends "layout/basic.html" %}
+{% block info %}{{ user.username }}{% endblock %}
+{% block notelist %}
+        {% for note in notes %}
+            <button onclick="get_note({{ note.id }})" style="background-color: {{ note.color }}">{{ note.shorttext }}</button>
+        {% endfor %}
+    {% load staticfiles %}
+        <script src="{% static "noter/jquery.js" %}"></script>
+        <script src="{% static "noter/ajax.js" %}"></script>
+        <script src="{% static "noter/save.js" %}"></script>
+{% endblock %}
+{% block content %}
+    <div  id="editor">
+        <div id="text" contenteditable="true" oninput="textChanged()"> </div>
+        <div id="controlbox" hidden="true">
+            <form method="post" id="onlyform">
+                {% csrf_token %}
+                {{ form }}
+                {{ form1 }}
+                <button id="delete">У</button>
+                <button style="font-weight: bold" id="bolder">Ж</button>
+                <button style="font-style: italic" id="italy">К</button>
+                <button id="roy">R</button>
+                <button id="col">C</button>
+                <button onclick="save_note()" id="save">С</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
