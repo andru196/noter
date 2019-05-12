@@ -8,15 +8,21 @@ class LogForm(ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password')
+        help_texts = {
+        'username': ""
+    }
 
 class SaveForm(ModelForm):
     class Meta:
         model = Note
         fields = ("id", 'text', 'color', 'locked', 'protected')
+        widgets = {
+            'color': forms.TextInput(attrs={'type': "color"}),
+        }
 
 
 class IDForm(forms.Form):
-    id = forms.CharField(max_length=10)
+    id = forms.CharField(max_length=10, required=True)
 
 
 class RegForm(forms.Form):

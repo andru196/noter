@@ -1,7 +1,13 @@
 $(document).ready(function() {
-$("#controlbox input, #controlbox label, #controlbox textarea").each(function () {
-    $(this).css('display', "none")
-})});
+    $("#controlbox input, #controlbox label, #controlbox textarea").each(function () {
+        $(this).css('display', "none")
+    });
+    $("#controlbox input[type=button]").css('display', 'inline');
+    $("#col").click(function ()
+    {
+       $("#id_color").css('display', "inline");
+    });
+                            });
 
 function save_note() {
     if (New)

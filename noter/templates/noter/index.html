@@ -1,5 +1,6 @@
 {% extends "layout/basic.html" %}
 {% block info %}{{ user.username }}{% endblock %}
+ {% block logout %}<a href="{% url 'logout' %}">Выйти</a>{% endblock %}
 {% block notelist %}
         {% for note in notes %}
             <button onclick="get_note({{ note.id }})" style="background-color: {{ note.color }}">{{ note.shorttext }}</button>
@@ -17,12 +18,12 @@
                 {% csrf_token %}
                 {{ form }}
                 {{ form1 }}
-                <button id="delete">У</button>
-                <button style="font-weight: bold" id="bolder">Ж</button>
-                <button style="font-style: italic" id="italy">К</button>
-                <button id="roy">R</button>
-                <button id="col">C</button>
-                <button onclick="save_note()" id="save">С</button>
+                <input id="delete" type="button" value="У">
+                <input style="font-weight: bold" id="bolder" type="button" value="Ж">
+                <input style="font-style: italic" id="italy" type="button" value="К">
+                <input id="roy" type="button" value="R">
+                <input id="col" type="button" value="C">
+                <input onclick="save_note()" type="button" id="save" value="С">
             </form>
         </div>
     </div>

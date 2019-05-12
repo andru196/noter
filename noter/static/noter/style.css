@@ -37,7 +37,7 @@ section{
     bottom: 0px;
 }
 
-#controlbox button{
+#controlbox button, #controlbox input[type=button]{
     height: 40px;
     width: 40px;
 }
@@ -60,4 +60,15 @@ section{
 #delete{
         background: url(img/trash.svg) no-repeat ;
     background-size: contain;
+}
+
+#logout{
+    text-align: right;
+    margin-right: 20px;
+}
+
+header{
+    display: grid;
+     grid-template-columns: 50% 50%;
+    grid-template-rows: 4vh;
 }

@@ -21,11 +21,13 @@ from noter.views import *
 urlpatterns = [
     path('login/<int:log>/', login),
     path('reg/<int:log>/', regist),
-    path('logout/', logout),
+    path('logout/', log_out, name="logout"),
     path('del_note/', del_note),
-    re_path(r'^l', login),
-    path('reg/', regist),
+    re_path(r'^l', login, name='login'),
+    path('reg/', regist, name='regist'),
+    path('read_only/', locker),
     re_path(r'^r', regist),
+
     path('admin/', admin.site.urls),
     path('get_note/', get_note, name='get_one'),
     re_path(r'', index)

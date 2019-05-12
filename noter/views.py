@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from .models import *
 from django.forms.models import model_to_dict
 from .form import *
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse
 import json
 from datetime import date
 
@@ -21,12 +21,24 @@ def get_note(request):
 def del_note(request):
     note = request.GET.get('id')
     note = Note.objects.get(id=note)
-    if note.user == request.user:
+    if note.user == request.user and not note.locked:
         note.deleted = date.today()
         note.save()
         return HttpResponse("OK")
     else:
         return HttpResponse("!KO!")
+
+
+def locker(request):
+    note = request.GET.get('id')
+    note = Note.objects.get(id=note)
+    if note.locked and note.user == request.user:
+        note.locked = False
+    elif not note.locked and note.user == request.user:
+        note.locked = True
+    note.save()
+    return HttpResponse(note.locked.__str__())
+
 
 def index(request):
     if request.user.is_authenticated == False:
@@ -44,13 +56,14 @@ def index(request):
                 return HttpResponseRedirect('/')
         text = request.POST.get("text")
         note.text = text
+        note.color = request.POST.get('color')
         note.shorttext = (text[0:49].replace("<br>", "\n").split('\n'))[0]
         note.save()
+        return HttpResponseRedirect('/')
     notes = Note.objects.filter(user=request.user, deleted=None).values("id", "shorttext", 'color')
     if notes.count() == 0:
         notes = {"id": "0", "shorttext": "Нет заметок"}
     return render(request, "noter/index.html", {"notes": notes, "form": SaveForm(), "form1": IDForm()})
-
 
 
 def login(request, log=""):

@@ -1,26 +1,24 @@
-    function ajaxxx(adr, fsccss, ffl, data){
+    function ajaxxx(adr, fsccss, ffl, data)
+    {
     return $.ajax({
 
         url: adr,
-
        data: data,
-
         type: 'get', // This is the default though, you don't actually need to always mention it
         success: fsccss,
-
         failure: ffl
-});}
+    });
+    }
 
 var New = true;
 var Now = {};
 
-function del_gen(id) {
-    return function () {
-        data_a = {
-            id: id
-    }
-    ajaxxx("del_note/", function () {},
-        function () {}, data_a);
+function butt_gen(id, addr, f1=(function () {}), f2=(function () {}))
+{
+    return function ()
+    {
+        let data_a = {id: id};
+        ajaxxx(addr, f1, f2, data_a);
     }
 }
 
@@ -37,7 +35,13 @@ function get_note(id)
             $("#text").html(data.text);
             New = false;
             Now = data;
-            $("#delete").click(del_gen(Now.id));
+            $("#delete").click(butt_gen(Now.id, "del_note/"));
+            $("#roy").click(butt_gen(Now.id, "read_only/", function (data) {
+                if (data=='True')
+                    document.getElementById('text').contentEditable = 'false';
+                else
+                    document.getElementById('text').contentEditable = 'true';
+            }));
         }
         else{
             console.log("KO");
