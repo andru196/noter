@@ -1,6 +1,6 @@
 {% extends "layout/basic.html" %}
 {% block info %}{{ user.username }}{% endblock %}
- {% block logout %}<a href="{% url 'logout' %}">Выйти</a>{% endblock %}
+ {% block logout %}<a href="{% url 'logout' %}">Выйти, ага</a>{% endblock %}
 {% block notelist %}
         {% for note in notes %}
             <button onclick="get_note({{ note.id }})" style="background-color: {{ note.color }}">{{ note.shorttext }}</button>
